@@ -46,7 +46,6 @@ ng test
 
 ## Notes
 
-- No NgModules — every component is `standalone: true`.
 - No constructors — dependencies are pulled in with `inject()`.
 - The student list uses the new `@for` / `@empty` control-flow syntax instead of `*ngFor`.
 - `student-form` is a dumb-ish form component: it takes `[editStudent]` as an `@Input`,
