@@ -1,0 +1,20 @@
+<nav class="topbar">
+  <div class="brand">
+    <span class="tab-mark">CG</span>
+    ClassGrade
+  </div>
+
+  <ul class="nav-links">
+    <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+    <li><a routerLink="/students" routerLinkActive="active">Students</a></li>
+    <li><a routerLink="/reports" routerLinkActive="active">Reports</a></li>
+    <li><a routerLink="/settings" routerLinkActive="active">Settings</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <div class="prof-chip">
+      <span class="prof-avatar">PL</span>
+      {{ professorName }}
+    </div>
+  </div>
+</nav>

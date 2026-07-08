@@ -1,0 +1,18 @@
+<div class="page-header">
+  <p class="eyebrow">APPDEV1 · Section BSIT-3A</p>
+  <h1>Manage Students</h1>
+  <p class="page-sub">Add new students, update grades, or remove a record from the record.</p>
+</div>
+
+<main class="page-content">
+  <app-student-form
+    [editStudent]="selectedStudent"
+    (saved)="onSaved()">
+  </app-student-form>
+
+  <app-student-list
+    [students]="students"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)">
+  </app-student-list>
+</main>

@@ -1,0 +1,113 @@
+<section class="home-bar">
+  <div class="home-bar-stamp" aria-hidden="true">
+    <span class="num">A+</span>
+    <span class="tag">Term 2</span>
+  </div>
+
+  <div class="home-bar-left">
+    <p class="eyebrow">APPDEV1 · Section BSCS-3A</p>
+    <h1>Good afternoon, Prof. Reyes</h1>
+    <p>{{ students.length }} students on the roster this term, averaging {{ classAverage }}.</p>
+  </div>
+
+  <div class="home-bar-stats">
+    <div class="hb-stat">
+      <div class="hb-value">{{ students.length }}</div>
+      <div class="hb-label">Students</div>
+    </div>
+    <div class="divider"></div>
+    <div class="hb-stat">
+      <div class="hb-value">{{ classAverage }}</div>
+      <div class="hb-label">Average</div>
+    </div>
+    <div class="divider"></div>
+    <div class="hb-stat">
+      <div class="hb-value">{{ passingCount }}/{{ students.length }}</div>
+      <div class="hb-label">Passing</div>
+    </div>
+  </div>
+</section>
+
+<main class="page-content">
+  <div class="quick-links">
+    <a routerLink="/students" class="quick-card">
+      <div class="quick-icon">S</div>
+      <div>
+        <div class="quick-title">Manage Students</div>
+        <div class="quick-desc">Add, edit, or remove students from the ledger.</div>
+      </div>
+    </a>
+
+    <a routerLink="/reports" class="quick-card">
+      <div class="quick-icon">R</div>
+      <div>
+        <div class="quick-title">View Reports</div>
+        <div class="quick-desc">See grade distribution and top/bottom performers.</div>
+      </div>
+    </a>
+
+    <a routerLink="/settings" class="quick-card">
+      <div class="quick-icon">⚙</div>
+      <div>
+        <div class="quick-title">Settings</div>
+        <div class="quick-desc">Update class details and notification preferences.</div>
+      </div>
+    </a>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Recently Added</h2>
+        <a routerLink="/students" class="panel-link">View all</a>
+      </div>
+
+      @if (recentStudents.length > 0) {
+        <ul class="mini-list">
+          @for (student of recentStudents; track student._id) {
+            <li class="mini-row">
+              <span class="mini-avatar">{{ initials(student.name) }}</span>
+              <div class="mini-info">
+                <div class="mini-name">{{ student.name }}</div>
+                <div class="mini-meta">{{ student.studentId }} · {{ student.course }}</div>
+              </div>
+              <span
+                class="mini-grade"
+                [class.pass]="student.grade >= 85"
+                [class.warn]="student.grade >= 75 && student.grade < 85"
+                [class.fail]="student.grade < 75">
+                {{ student.grade }}
+              </span>
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="panel-empty">No students added yet. Head to the Students page to add your first one.</p>
+      }
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Needs Attention</h2>
+        <a routerLink="/reports" class="panel-link">View report</a>
+      </div>
+
+      @if (attentionStudents.length > 0) {
+        <ul class="mini-list">
+          @for (student of attentionStudents; track student._id) {
+            <li class="mini-row">
+              <span class="mini-avatar warn-avatar">{{ initials(student.name) }}</span>
+              <div class="mini-info">
+                <div class="mini-name">{{ student.name }}</div>
+                <div class="mini-meta">{{ student.studentId }} · {{ student.course }}</div>
+              </div>
+              <span class="mini-grade fail">{{ student.grade }}</span>
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="panel-empty">Nobody is currently below the passing grade. Nice work.</p>
+      }
+    </div>
+  </div>
+</main>

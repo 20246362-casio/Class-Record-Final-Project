@@ -1,0 +1,183 @@
+<div class="page-header">
+  <p class="eyebrow">APPDEV1 · Section BSCS-3A</p>
+  <h1>Settings</h1>
+  <p class="page-sub">Manage your profile, class details, and how the ledger notifies you.</p>
+</div>
+
+<main class="page-content">
+  <form (ngSubmit)="onSave()" class="settings-columns">
+
+    <div class="settings-main">
+
+      <section class="settings-card">
+        <div class="settings-card-head">
+          <span class="settings-icon">P</span>
+          <div>
+            <h2>Profile</h2>
+            <p class="settings-card-sub">Your name and email, as shown across the app.</p>
+          </div>
+        </div>
+
+        <div class="settings-grid two-col">
+          <div class="field">
+            <label>Full Name</label>
+            <input type="text" [(ngModel)]="professorName" name="professorName">
+          </div>
+          <div class="field">
+            <label>Email Address</label>
+            <input type="email" [(ngModel)]="professorEmail" name="professorEmail">
+          </div>
+        </div>
+      </section>
+
+      <section class="settings-card">
+        <div class="settings-card-head">
+          <span class="settings-icon">C</span>
+          <div>
+            <h2>Class Details</h2>
+            <p class="settings-card-sub">What shows up in the header and ledger title.</p>
+          </div>
+        </div>
+
+        <div class="settings-grid three-col">
+          <div class="field">
+            <label>Section</label>
+            <input type="text" [(ngModel)]="section" name="section">
+          </div>
+          <div class="field">
+            <label>Term</label>
+            <input type="text" [(ngModel)]="term" name="term">
+          </div>
+          <div class="field">
+            <label>Course Code</label>
+            <input type="text" [(ngModel)]="courseCode" name="courseCode">
+          </div>
+        </div>
+      </section>
+
+      <section class="settings-card">
+        <div class="settings-card-head">
+          <span class="settings-icon">G</span>
+          <div>
+            <h2>Grading &amp; Alerts</h2>
+            <p class="settings-card-sub">Defines what counts as passing across Reports and Home.</p>
+          </div>
+        </div>
+
+        <div class="settings-grid two-col">
+          <div class="field">
+            <label>Passing Grade Threshold</label>
+            <input type="number" [(ngModel)]="passingGrade" name="passingGrade">
+          </div>
+          <div class="field">
+            <label>Grading Scale</label>
+            <select [(ngModel)]="gradingScale" name="gradingScale">
+              <option value="percentage">Percentage (0-100)</option>
+              <option value="letter">Letter Grade (A-F)</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="settings-card">
+        <div class="settings-card-head">
+          <span class="settings-icon">N</span>
+          <div>
+            <h2>Notifications</h2>
+            <p class="settings-card-sub">Choose what the ledger should email you about.</p>
+          </div>
+        </div>
+
+        <ul class="toggle-list">
+          <li class="toggle-item">
+            <div>
+              <div class="toggle-title">Low grade alerts</div>
+              <div class="toggle-desc">Email me when a student falls below the passing threshold.</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="emailOnLowGrade" name="emailOnLowGrade">
+              <span class="slider"></span>
+            </label>
+          </li>
+
+          <li class="toggle-item">
+            <div>
+              <div class="toggle-title">Weekly summary</div>
+              <div class="toggle-desc">A digest of class average and roster changes, every Monday.</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="weeklySummaryEmail" name="weeklySummaryEmail">
+              <span class="slider"></span>
+            </label>
+          </li>
+
+          <li class="toggle-item">
+            <div>
+              <div class="toggle-title">New student added</div>
+              <div class="toggle-desc">Get notified whenever a student is added to the ledger.</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="newStudentAlert" name="newStudentAlert">
+              <span class="slider"></span>
+            </label>
+          </li>
+        </ul>
+      </section>
+
+      <section class="settings-card danger-card">
+        <div class="settings-card-head">
+          <span class="settings-icon danger-icon">!</span>
+          <div>
+            <h2>Danger Zone</h2>
+            <p class="settings-card-sub">Restore these settings back to their defaults. This does not affect your students.</p>
+          </div>
+        </div>
+
+        <div class="danger-actions">
+          @if (resetMessageVisible) {
+            <span class="reset-message">Settings reset</span>
+          }
+          <button type="button" class="btn btn-outline-danger" (click)="onResetDefaults()">
+            Reset to Defaults
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <aside class="settings-sidebar">
+      <div class="profile-preview">
+        <span class="profile-avatar">{{ initials(professorName) }}</span>
+        <div class="profile-name">{{ professorName }}</div>
+        <div class="profile-email">{{ professorEmail }}</div>
+      </div>
+
+      <div class="sidebar-divider"></div>
+
+      <div class="sidebar-row">
+        <span class="sidebar-label">Section</span>
+        <span class="sidebar-value">{{ section }}</span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-label">Term</span>
+        <span class="sidebar-value">{{ term }}</span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-label">Course</span>
+        <span class="sidebar-value">{{ courseCode }}</span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-label">Passing at</span>
+        <span class="sidebar-value">{{ passingGrade }}</span>
+      </div>
+
+      <div class="sidebar-actions">
+        @if (savedMessageVisible) {
+          <span class="saved-message">Saved</span>
+        }
+        <button type="submit" class="btn btn-primary full-width">Save Settings</button>
+      </div>
+    </aside>
+
+  </form>
+</main>

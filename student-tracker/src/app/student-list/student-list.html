@@ -1,0 +1,46 @@
+<div class="ledger-wrap">
+  <div class="ledger-toolbar">
+    <h2>Class Records</h2>
+    <span class="count-pill">{{ students.length }} student(s)</span>
+  </div>
+
+  <table class="ledger">
+    <thead>
+      <tr>
+        <th class="id-col">Student ID</th>
+        <th>Name</th>
+        <th>Course</th>
+        <th>Grade</th>
+        <th class="actions-head">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (student of students; track student._id) {
+        <tr>
+          <td class="id-col">{{ student.studentId }}</td>
+          <td>{{ student.name }}</td>
+          <td>{{ student.course }}</td>
+          <td>
+            <span
+              class="grade-stamp"
+              [class.pass]="student.grade >= 85"
+              [class.warn]="student.grade >= 75 && student.grade < 85"
+              [class.fail]="student.grade < 75">
+              {{ student.grade }}
+            </span>
+          </td>
+          <td>
+            <div class="row-actions">
+              <button class="icon-btn edit" (click)="onEdit(student)">Edit</button>
+              <button class="icon-btn delete" (click)="onDelete(student._id)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="5" class="empty-row">No students yet. Use the form above to add one.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

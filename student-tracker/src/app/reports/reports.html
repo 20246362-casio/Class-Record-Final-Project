@@ -1,0 +1,68 @@
+<div class="page-header">
+  <p class="eyebrow">APPDEV1 · Section BSCS-3A</p>
+  <h1>Class Reports</h1>
+  <p class="page-sub">A quick read on how the class is doing this term.</p>
+</div>
+
+<main class="page-content">
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="summary-label">Class Average</div>
+      <div class="summary-value">{{ classAverage }}</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">Passing</div>
+      <div class="summary-value pass-text">{{ passingCount }}</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">Failing</div>
+      <div class="summary-value fail-text">{{ failingCount }}</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">Total Students</div>
+      <div class="summary-value">{{ students.length }}</div>
+    </div>
+  </div>
+
+  <div class="report-panel">
+    <h2>Grade Distribution</h2>
+
+    @for (bracket of bracketCounts; track bracket.label) {
+      <div class="bar-row">
+        <span class="bar-label">{{ bracket.label }}</span>
+        <div class="bar-track">
+          <div
+            class="bar-fill"
+            [class.pass]="bracket.className === 'pass'"
+            [class.warn]="bracket.className === 'warn'"
+            [class.fail]="bracket.className === 'fail'"
+            [style.width.%]="barWidth(bracket.count)">
+          </div>
+        </div>
+        <span class="bar-count">{{ bracket.count }}</span>
+      </div>
+    }
+  </div>
+
+  <div class="performer-grid">
+    <div class="performer-card">
+      <div class="performer-label">Top Performer</div>
+      @if (topStudent) {
+        <div class="performer-name">{{ topStudent.name }}</div>
+        <div class="performer-meta">{{ topStudent.studentId }} · Grade {{ topStudent.grade }}</div>
+      } @else {
+        <div class="performer-empty">No students yet</div>
+      }
+    </div>
+
+    <div class="performer-card">
+      <div class="performer-label">Needs Attention</div>
+      @if (lowestStudent) {
+        <div class="performer-name">{{ lowestStudent.name }}</div>
+        <div class="performer-meta">{{ lowestStudent.studentId }} · Grade {{ lowestStudent.grade }}</div>
+      } @else {
+        <div class="performer-empty">No students yet</div>
+      }
+    </div>
+  </div>
+</main>
